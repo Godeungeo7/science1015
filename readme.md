@@ -1,4 +1,3 @@
-# science1015
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,22 +14,23 @@
 
 body{
     overflow:hidden;
-    font-family:'Malgun Gothic',sans-serif;
-    background:radial-gradient(circle at bottom,#090b2f,#000);
-}
-
-.space{
-    position:fixed;
-    width:100%;
-    height:100%;
-    overflow:hidden;
+    font-family:'Pretendard',sans-serif;
+    height:100vh;
+    background:
+    radial-gradient(circle at top,#332b7d,#130f2d 40%,#04020d 90%);
 }
 
 /* 별 */
+.stars{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
 .star{
     position:absolute;
-    width:2px;
-    height:2px;
+    width:3px;
+    height:3px;
     background:white;
     border-radius:50%;
     animation:twinkle 2s infinite alternate;
@@ -38,26 +38,92 @@ body{
 
 @keyframes twinkle{
     from{opacity:.2;}
-    to{opacity:1;}
+    to{
+        opacity:1;
+        transform:scale(1.8);
+    }
 }
 
 /* 행성 */
+
 .planet{
     position:absolute;
     border-radius:50%;
-    animation:movePlanet linear infinite;
+    animation:float 10s ease-in-out infinite;
+    box-shadow:0 0 40px rgba(255,255,255,.4);
 }
 
-@keyframes movePlanet{
-    from{
-        transform:translateX(-250px);
+.p1{
+    width:180px;
+    height:180px;
+    background:linear-gradient(45deg,#ffb347,#ff5f6d);
+    top:8%;
+    left:10%;
+}
+
+.p2{
+    width:120px;
+    height:120px;
+    background:linear-gradient(45deg,#42e695,#3bb2b8);
+    bottom:12%;
+    right:8%;
+    animation-duration:14s;
+}
+
+.p3{
+    width:90px;
+    height:90px;
+    background:linear-gradient(45deg,#8EC5FC,#E0C3FC);
+    top:20%;
+    right:20%;
+    animation-duration:12s;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0px);
     }
-    to{
-        transform:translateX(calc(100vw + 250px));
+    50%{
+        transform:translateY(-25px);
+    }
+    100%{
+        transform:translateY(0px);
     }
 }
 
-/* 가운데 */
+/* 귀여운 외계인 */
+
+.alien{
+    position:absolute;
+    font-size:70px;
+    animation:alienFloat 8s ease-in-out infinite;
+}
+
+.a1{
+    left:25%;
+    top:60%;
+}
+
+.a2{
+    right:28%;
+    top:30%;
+    animation-duration:11s;
+}
+
+@keyframes alienFloat{
+    0%{
+        transform:translateY(0px) rotate(-8deg);
+    }
+    50%{
+        transform:translateY(-35px) rotate(8deg);
+    }
+    100%{
+        transform:translateY(0px) rotate(-8deg);
+    }
+}
+
+/* 중앙 */
+
 .center{
     position:absolute;
     top:50%;
@@ -65,98 +131,80 @@ body{
     transform:translate(-50%,-50%);
     text-align:center;
     color:white;
+    z-index:10;
 }
 
 h1{
-    font-size:52px;
-    text-shadow:0 0 20px cyan;
-    margin-bottom:40px;
+    font-size:55px;
+    text-shadow:
+    0 0 20px #8cf,
+    0 0 50px #8cf,
+    0 0 80px white;
+    margin-bottom:30px;
 }
 
 button{
-    padding:18px 50px;
-    font-size:24px;
+    padding:18px 55px;
+    font-size:22px;
     border:none;
-    border-radius:40px;
+    border-radius:50px;
     cursor:pointer;
-    background:linear-gradient(45deg,#00d2ff,#3a7bd5);
     color:white;
+    background:linear-gradient(45deg,#6a5cff,#00d4ff);
     transition:.3s;
+    box-shadow:0 0 30px #66ccff;
 }
 
 button:hover{
     transform:scale(1.08);
-    box-shadow:0 0 25px cyan;
+    box-shadow:0 0 50px cyan;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="space" id="space"></div>
+<div class="stars"></div>
+
+<div class="planet p1"></div>
+<div class="planet p2"></div>
+<div class="planet p3"></div>
+
+<div class="alien a1">👽</div>
+<div class="alien a2">🛸👽</div>
 
 <div class="center">
-    <h1>안녕하세요<br>이재경의 방입니다</h1>
+<h1>안녕하세요.<br>이재경의 방에 오신 것을 환영합니다.</h1>
 
-    <button onclick="startApp()">
-        시작하기
-    </button>
+<button onclick="location.href='main.html'">
+🚀 시작하기
+</button>
+
 </div>
 
 <script>
 
-const space=document.getElementById("space");
+const stars=document.querySelector(".stars");
 
-// 별 생성
-for(let i=0;i<250;i++){
+for(let i=0;i<220;i++){
 
-    let star=document.createElement("div");
+const star=document.createElement("div");
 
-    star.className="star";
+star.className="star";
 
-    star.style.left=Math.random()*100+"%";
-    star.style.top=Math.random()*100+"%";
-    star.style.animationDuration=(Math.random()*3+1)+"s";
+star.style.left=Math.random()*100+"%";
 
-    space.appendChild(star);
-}
+star.style.top=Math.random()*100+"%";
 
-// 행성 색상
-const colors=[
-"#4fc3f7",
-"#ff9800",
-"#8bc34a",
-"#ab47bc",
-"#ff5252",
-"#ffee58",
-"#90caf9"
-];
+star.style.animationDelay=Math.random()*3+"s";
 
-// 행성 생성
-for(let i=0;i<8;i++){
+star.style.width=Math.random()*4+1+"px";
 
-    let p=document.createElement("div");
+star.style.height=star.style.width;
 
-    let size=Math.random()*90+40;
+stars.appendChild(star);
 
-    p.className="planet";
-
-    p.style.width=size+"px";
-    p.style.height=size+"px";
-
-    p.style.background=colors[Math.floor(Math.random()*colors.length)];
-
-    p.style.top=Math.random()*80+"%";
-
-    p.style.animationDuration=(20+Math.random()*25)+"s";
-
-    p.style.animationDelay=(-Math.random()*30)+"s";
-
-    space.appendChild(p);
-}
-
-function startApp(){
-    alert("이재경의 방에 오신 것을 환영합니다!");
 }
 
 </script>
