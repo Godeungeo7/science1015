@@ -3,172 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>👽 재경이의 방 👽</title>
+<title>Space Science</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Orbitron',sans-serif;
+}
 
 body{
-overflow:hidden;
 height:100vh;
-background:linear-gradient(#000010,#12003f,#25005a);
-font-family:"Comic Sans MS","Malgun Gothic",sans-serif;
-cursor:crosshair;
+overflow:hidden;
+background:radial-gradient(circle at bottom,#001233,#000814,#000);
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
 }
 
 /* 별 */
 .star{
 position:absolute;
-width:3px;
-height:3px;
 background:white;
 border-radius:50%;
-animation:twinkle 2s infinite alternate;
+animation:twinkle 3s infinite;
 }
 
 @keyframes twinkle{
-from{opacity:.2;}
-to{opacity:1;}
+0%,100%{
+opacity:.2;
+transform:scale(1);
+}
+50%{
+opacity:1;
+transform:scale(1.5);
+}
 }
 
-/* 가운데 */
-.center{
+/* 은하 */
+.nebula{
 position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+width:700px;
+height:700px;
+background:radial-gradient(circle,#4f46e5aa,#7c3aed44,transparent);
+filter:blur(70px);
+animation:rotate 30s linear infinite;
+}
+
+@keyframes rotate{
+from{
+transform:rotate(0deg);
+}
+to{
+transform:rotate(360deg);
+}
+}
+
+.container{
+z-index:5;
 text-align:center;
-z-index:50;
+color:white;
 }
 
 h1{
-color:white;
-font-size:42px;
-text-shadow:4px 4px hotpink;
-animation:shake .4s infinite alternate;
+font-size:70px;
+letter-spacing:5px;
+text-shadow:0 0 20px cyan;
+animation:glow 2s infinite alternate;
 }
 
-@keyframes shake{
-from{transform:rotate(-1deg);}
-to{transform:rotate(1deg);}
+@keyframes glow{
+from{
+text-shadow:0 0 20px cyan;
+}
+to{
+text-shadow:0 0 50px #00f7ff;
+}
+}
+
+p{
+margin-top:20px;
+font-size:22px;
+opacity:.8;
 }
 
 button{
-margin-top:30px;
-padding:18px 45px;
+margin-top:50px;
+padding:18px 60px;
 font-size:22px;
-background:yellow;
 border:none;
 border-radius:50px;
+background:linear-gradient(90deg,#00e5ff,#8a2be2);
+color:white;
 cursor:pointer;
-box-shadow:5px 5px orange;
-animation:rainbow 3s infinite;
-transition:.2s;
+transition:.3s;
+box-shadow:0 0 25px cyan;
 }
 
 button:hover{
-transform:scale(1.1) rotate(-5deg);
+transform:scale(1.1);
+box-shadow:0 0 50px cyan;
 }
 
-@keyframes rainbow{
-0%{background:#ff0;}
-25%{background:#0ff;}
-50%{background:#f0f;}
-75%{background:#0f0;}
-100%{background:#ff0;}
-}
-
-/* 행성 */
-#planet{
+.shooting-star{
 position:absolute;
-left:70%;
-top:15%;
-font-size:90px;
-transition:.2s;
-animation:float 4s infinite ease-in-out;
+width:3px;
+height:120px;
+background:linear-gradient(white,transparent);
+transform:rotate(45deg);
+animation:shoot 5s linear infinite;
 }
 
-/* 외계인 */
-#alien{
-position:absolute;
-left:12%;
-top:65%;
-font-size:70px;
-cursor:pointer;
-animation:alien 3s infinite;
+@keyframes shoot{
+0%{
+top:-100px;
+left:-100px;
+opacity:1;
 }
-
-@keyframes alien{
-50%{transform:translateY(-25px);}
-}
-
-/* UFO */
-#ufo{
-position:absolute;
-top:8%;
-left:-200px;
-font-size:60px;
-animation:ufo 15s linear infinite;
-}
-
-@keyframes ufo{
-to{
+100%{
+top:120%;
 left:120%;
-}
-}
-
-/* 유성 */
-.meteor{
-position:absolute;
-color:white;
-font-size:22px;
-animation:meteor 2s linear forwards;
-}
-
-@keyframes meteor{
-to{
-transform:translate(-700px,700px);
 opacity:0;
 }
-}
-
-/* XP창 */
-#loading{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.window{
-width:320px;
-background:#ece9d8;
-border:3px solid #245edb;
-font-family:tahoma;
-}
-
-.title{
-background:#245edb;
-color:white;
-padding:8px;
-font-weight:bold;
-}
-
-.content{
-padding:25px;
-text-align:center;
-font-size:18px;
-}
-
-progress{
-width:90%;
-height:20px;
 }
 </style>
 
@@ -176,175 +136,49 @@ height:20px;
 
 <body>
 
-<div id="planet">🪐</div>
+<div class="nebula"></div>
 
-<div id="alien">👽</div>
+<div class="container">
+<h1>SPACE SCIENCE</h1>
+<p>Explore the Universe</p>
 
-<div id="ufo">🛸</div>
-
-<div class="center">
-
-<h1>
-안녕하세요!<br>
-재경이의 방에<br>
-오신 걸 환영합니다!
-</h1>
-
-<button onclick="startRoom()">
+<button onclick="startApp()">
 🚀 시작하기
 </button>
-
 </div>
 
-<div id="loading">
-
-<div class="window">
-
-<div class="title">
-Windows XP
-</div>
-
-<div class="content">
-
-📡 삐빅... 접속 중...
-
-<br><br>
-
-<progress></progress>
-
-</div>
-
-</div>
-
-</div>
+<div class="shooting-star"></div>
 
 <script>
 
-/* 별 200개 */
+// 별 250개 생성
+for(let i=0;i<250;i++){
 
-for(let i=0;i<200;i++){
+const star=document.createElement("div");
 
-let s=document.createElement("div");
+star.className="star";
 
-s.className="star";
+const size=Math.random()*3+1;
 
-s.style.left=Math.random()*100+"vw";
-
-s.style.top=Math.random()*100+"vh";
-
-s.style.animationDuration=(Math.random()*3+1)+"s";
-
-document.body.appendChild(s);
-
-}
-
-/* 별 커서 */
-
-document.addEventListener("mousemove",e=>{
-
-let star=document.createElement("div");
-
-star.innerHTML="⭐";
-
-star.style.position="absolute";
-
-star.style.left=e.pageX+"px";
-
-star.style.top=e.pageY+"px";
-
-star.style.pointerEvents="none";
-
-star.style.fontSize="12px";
+star.style.width=size+"px";
+star.style.height=size+"px";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDelay=Math.random()*5+"s";
 
 document.body.appendChild(star);
 
-setTimeout(()=>star.remove(),500);
-
-});
-
-/* 행성 마우스 따라오기 */
-
-const planet=document.getElementById("planet");
-
-document.addEventListener("mousemove",e=>{
-
-planet.style.left=e.clientX/10+"px";
-
-planet.style.top=e.clientY/10+"px";
-
-});
-
-/* 외계인 도망 */
-
-const alien=document.getElementById("alien");
-
-alien.onclick=()=>{
-
-beep();
-
-alien.innerHTML="🏃‍♂️💨";
-
-alien.style.transition="1s";
-
-alien.style.transform="translate(1800px,-900px) rotate(720deg)";
-
-};
-
-/* 유성 */
-
-setInterval(()=>{
-
-let m=document.createElement("div");
-
-m.className="meteor";
-
-m.innerHTML="☄️";
-
-m.style.left=Math.random()*window.innerWidth+"px";
-
-m.style.top="-50px";
-
-document.body.appendChild(m);
-
-setTimeout(()=>m.remove(),2000);
-
-},2500);
-
-/* 삐용 효과음 */
-
-function beep(){
-
-const ctx=new(window.AudioContext||window.webkitAudioContext)();
-
-const osc=ctx.createOscillator();
-
-osc.type="triangle";
-
-osc.frequency.value=900;
-
-osc.connect(ctx.destination);
-
-osc.start();
-
-osc.stop(ctx.currentTime+0.15);
-
 }
 
-/* 시작하기 */
+// 버튼
+function startApp(){
 
-function startRoom(){
-
-beep();
-
-document.getElementById("loading").style.display="flex";
+document.body.style.transition="1s";
+document.body.style.background="#000";
 
 setTimeout(()=>{
-
-document.getElementById("loading").style.display="none";
-
-alert("👽 접속 성공!\n재경이의 방에 오신 걸 환영합니다!");
-
-},3000);
+alert("🚀 우주 탐험을 시작합니다!");
+},800);
 
 }
 
@@ -352,75 +186,3 @@ alert("👽 접속 성공!\n재경이의 방에 오신 걸 환영합니다!");
 
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space</title>
-<style>
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-}
-canvas{
-    display:block;
-}
-</style>
-</head>
-<body>
-
-<canvas id="space"></canvas>
-
-<script src="space.js"></script>
-
-</body>
-</html>const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-
-let started = false;
-
-function drone(freq, type, volume) {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.value = volume;
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start();
-
-    return { osc, gain };
-}
-
-function startMusic() {
-    if (started) return;
-    started = true;
-
-    audioCtx.resume();
-
-    const sounds = [
-        drone(55, "sine", 0.08),
-        drone(82.4, "triangle", 0.05),
-        drone(110, "sine", 0.03)
-    ];
-
-    setInterval(() => {
-        sounds.forEach(s => {
-            s.gain.gain.linearRampToValueAtTime(
-                Math.random() * 0.07 + 0.02,
-                audioCtx.currentTime + 5
-            );
-        });
-    }, 5000);
-}
-
-// 첫 클릭 또는 터치 시 자동 시작
-window.addEventListener("pointerdown", startMusic, { once: true });
-window.addEventListener("touchstart", startMusic, { once: true });
