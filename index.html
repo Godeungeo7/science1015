@@ -175,6 +175,226 @@ alert("편의점에 입장합니다!");
 
 }
 </script>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중2 과학 학습 앱</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'맑은 고딕',sans-serif;
+}
+
+body{
+    display:flex;
+    height:100vh;
+    background:#eef5ff;
+}
+
+/* 왼쪽 메뉴 */
+.sidebar{
+    width:220px;
+    background:#1976d2;
+    color:white;
+    padding:20px;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.sidebar button{
+    width:100%;
+    margin-bottom:10px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#1976d2;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.sidebar button:hover{
+    background:#90caf9;
+    color:white;
+}
+
+/* 오른쪽 */
+.content{
+    flex:1;
+    padding:40px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h1{
+    color:#1976d2;
+    margin-bottom:20px;
+}
+
+ul{
+    line-height:2;
+    font-size:20px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="sidebar">
+<h2>📚 중2 과학</h2>
+
+<button onclick="showUnit(1)">1단원</button>
+<button onclick="showUnit(2)">2단원</button>
+<button onclick="showUnit(3)">3단원</button>
+<button onclick="showUnit(4)">4단원</button>
+<button onclick="showUnit(5)">5단원</button>
+<button onclick="showUnit(6)">6단원</button>
+<button onclick="showUnit(7)">7단원</button>
+<button onclick="showUnit(8)">8단원</button>
+
+</div>
+
+<div class="content">
+
+<div class="card">
+
+<h1 id="title">단원을 선택하세요.</h1>
+
+<div id="text">
+
+<p>왼쪽 버튼을 눌러 학습을 시작하세요.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const units={
+
+1:{
+title:"1단원",
+list:[
+"물질의 구성",
+"순물질과 혼합물",
+"원소",
+"화합물",
+"분자"
+]
+},
+
+2:{
+title:"2단원",
+list:[
+"전기와 자기",
+"전류",
+"전압",
+"저항",
+"전기 회로"
+]
+},
+
+3:{
+title:"3단원",
+list:[
+"태양계",
+"행성",
+"달",
+"일식과 월식"
+]
+},
+
+4:{
+title:"4단원",
+list:[
+"식물의 구조",
+"광합성",
+"증산작용",
+"뿌리와 줄기"
+]
+},
+
+5:{
+title:"5단원",
+list:[
+"동물과 에너지",
+"소화",
+"순환",
+"호흡",
+"배설"
+]
+},
+
+6:{
+title:"6단원",
+list:[
+"물질의 특성",
+"밀도",
+"녹는점",
+"끓는점",
+"용해도"
+]
+},
+
+7:{
+title:"7단원",
+list:[
+"힘과 운동",
+"속력",
+"가속도",
+"관성",
+"마찰력"
+]
+},
+
+8:{
+title:"8단원",
+list:[
+"기권과 날씨",
+"구름",
+"강수",
+"기압",
+"바람"
+]
+}
+
+};
+
+function showUnit(num){
+
+document.getElementById("title").innerHTML=units[num].title;
+
+let html="<ul>";
+
+units[num].list.forEach(item=>{
+html+="<li>"+item+"</li>";
+});
+
+html+="</ul>";
+
+document.getElementById("text").innerHTML=html;
+
+}
+
+</script>
+
+</body>
+</html>
 </body>
 </html>
