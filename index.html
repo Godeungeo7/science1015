@@ -204,7 +204,23 @@ function startGame(){
 
 document.getElementById("bell").play();
 
-document.getElementById("message").innerHTML="🎮 게임 시작!";
+document.getElementById("message").innerHTML="🎮 게임 시작!";function startGame() {
+
+    // 효과음 재생
+    const bell = document.getElementById("bell");
+    bell.currentTime = 0;
+    bell.play();
+
+    // 버튼 글자 없애기
+    const btn = document.querySelector(".startBtn");
+    btn.textContent = "";
+
+    // 버튼도 같이 없애고 싶으면 아래 한 줄 사용
+    // btn.style.display = "none";
+
+    // 게임 시작 메시지
+    document.getElementById("message").innerHTML = "🎮 게임 시작!";
+}
 
 }
 
