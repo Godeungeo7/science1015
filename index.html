@@ -4,144 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>편의점 앱</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<div class="store">
-    <h1>🏪 편의점</h1>
-
-    <div class="people">
-        <div class="person p1"></div>
-        <div class="person p2"></div>
-        <div class="person p3"></div>
-        <div class="person p4"></div>
-    </div>
-
-    <button id="startBtn">시작하기</button>
-
-    <h2 id="message"></h2>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>body{
+<style>
+body{
     margin:0;
-    font-family:sans-serif;
-    background:#f2f2f2;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+    background:#87CEEB;
+    font-family:Arial;
 }
 
 .store{
-    width:800px;
-    height:500px;
-    background:#fff;
-    border:8px solid #4CAF50;
-    border-radius:20px;
+    width:100%;
+    height:100vh;
     position:relative;
     overflow:hidden;
-    text-align:center;
+    background:linear-gradient(#8fd3ff,#d7f4ff);
 }
 
-.people{
+.shop{
     position:absolute;
-    width:100%;
-    height:300px;
-    top:80px;
+    bottom:100px;
+    left:50%;
+    transform:translateX(-50%);
+    width:500px;
+    height:250px;
+    background:white;
+    border:5px solid #444;
+}
+
+.sign{
+    height:50px;
+    background:#00c853;
+    color:white;
+    text-align:center;
+    line-height:50px;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.door{
+    width:100px;
+    height:150px;
+    background:#9fdcff;
+    position:absolute;
+    bottom:0;
+    left:200px;
 }
 
 .person{
-    width:35px;
-    height:35px;
-    border-radius:50%;
     position:absolute;
-    animation:move 5s linear infinite;
+    bottom:20px;
+    width:30px;
+    height:60px;
+    background:#ff9800;
+    border-radius:10px;
+    animation:walk 4s linear infinite alternate;
 }
 
-.p1{background:red; animation-delay:0s;}
-.p2{background:blue; animation-delay:1s;}
-.p3{background:green; animation-delay:2s;}
-.p4{background:orange; animation-delay:3s;}
+.person::before{
+    content:"";
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#ffd180;
+    position:absolute;
+    top:-25px;
+}
 
-@keyframes move{
-    0%{
-        left:-50px;
-        top:calc(50% - 20px);
+.p2{
+    left:100px;
+    animation-duration:3s;
+    background:#42a5f5;
+}
+
+.p3{
+    left:200px;
+    animation-duration:5s;
+    background:#ec407a;
+}
+
+.p4{
+    left:300px;
+    animation-duration:2.5s;
+    background:#66bb6a;
+}
+
+@keyframes walk{
+    from{
+        transform:translateX(-200px);
     }
-
-    50%{
-        top:calc(50% + 50px);
-    }
-
-    100%{
-        left:850px;
-        top:calc(50% - 30px);
+    to{
+        transform:translateX(200px);
     }
 }
 
 button{
     position:absolute;
-    bottom:60px;
+    bottom:20px;
     left:50%;
     transform:translateX(-50%);
-    padding:15px 35px;
+    padding:18px 40px;
     font-size:22px;
     border:none;
-    border-radius:10px;
-    background:#4CAF50;
+    border-radius:15px;
+    background:#ff5252;
     color:white;
     cursor:pointer;
 }
 
 button:hover{
-    background:#2f8f38;
+    background:#ff1744;
+}
+</style>
+
+</head>
+<body>
+
+<div class="store">
+
+<div class="shop">
+<div class="sign">24시 편의점</div>
+
+<div class="door"></div>
+
+<div class="person"></div>
+<div class="person p2"></div>
+<div class="person p3"></div>
+<div class="person p4"></div>
+
+</div>
+
+<button onclick="startApp()">시작하기</button>
+
+</div>
+
+<script>
+function playBell(){
+
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+function bell(freq,time){
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
+
+osc.frequency.value=freq;
+osc.type="triangle";
+
+osc.connect(gain);
+gain.connect(ctx.destination);
+
+gain.gain.setValueAtTime(0.2,ctx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+time);
+
+osc.start();
+osc.stop(ctx.currentTime+time);
 }
 
-#message{
-    position:absolute;
-    bottom:10px;
-    width:100%;
-    color:#ff4081;
-    font-size:40px;
-}const btn = document.getElementById("startBtn");
-const msg = document.getElementById("message");
+bell(880,0.3);
 
-btn.addEventListener("click", () => {
+setTimeout(()=>{
+bell(1175,0.4);
+},250);
 
-    msg.innerHTML = "🔔 때롱때롱~";
+}
 
-    // 벨소리 만들기
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+function startApp(){
 
-    function bell(freq,time){
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+playBell();
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+alert("편의점에 입장합니다!");
 
-        osc.frequency.value = freq;
-        osc.type = "triangle";
+}
+</script>
 
-        gain.gain.value = 0.2;
-
-        osc.start();
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.0001,
-            ctx.currentTime + time
-        );
-
-        osc.stop(ctx.currentTime + time);
-    }
-
-    bell(900,0.25);
-
-    setTimeout(()=>{
-        bell(1200,0.25);
-    },250);
-
-});
+</body>
+</html>
