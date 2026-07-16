@@ -214,5 +214,59 @@ function startApp(){
 
 </body>
 </html>
-<div class="unit-menu">
-    <button onclick="showUnit(1)">①
+<button onclick="showUnit(1)">① 물질의 특성</button><div id="quizBox" style="
+position:fixed;
+top:20px;
+right:20px;
+width:420px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+display:none;
+z-index:999;
+">
+<h2 id="unitTitle"></h2>
+<div id="questions"></div>
+</div>const quizData = {
+    1: {
+        title: "1단원 물질의 특성",
+        questions: [
+            {
+                q: "1. 물질을 구별하는 성질은?",
+                a: ["색", "물질의 특성", "길이", "무게"]
+            },
+            {
+                q: "2. 물질의 특성이 아닌 것은?",
+                a: ["밀도", "녹는점", "끓는점", "키"]
+            }
+        ]
+    }
+};
+
+function showUnit(num){
+
+    const data = quizData[num];
+
+    document.getElementById("quizBox").style.display="block";
+
+    document.getElementById("unitTitle").innerHTML=data.title;
+
+    let html="";
+
+    data.questions.forEach((q,index)=>{
+        html+=`
+        <h3>${q.q}</h3>
+
+        <label><input type="radio" name="q${index}">${q.a[0]}</label><br>
+
+        <label><input type="radio" name="q${index}">${q.a[1]}</label><br>
+
+        <label><input type="radio" name="q${index}">${q.a[2]}</label><br>
+
+        <label><input type="radio" name="q${index}">${q.a[3]}</label><br><br>
+        `;
+    });
+
+    document.getElementById("questions").innerHTML=html;
+}
