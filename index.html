@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>편의점 앱</title>
+<title>편의점 + 중2 과학 앱</title>
 
 <style>
 body{
     margin:0;
     background:#87CEEB;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
 }
 
 .store{
@@ -18,6 +18,34 @@ body{
     position:relative;
     overflow:hidden;
     background:linear-gradient(#8fd3ff,#d7f4ff);
+}
+
+/* 왼쪽 단원 메뉴 */
+.unit-menu{
+    position:fixed;
+    top:15px;
+    left:15px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    z-index:1000;
+}
+
+.unit-menu button{
+    width:150px;
+    padding:8px;
+    font-size:13px;
+    text-align:left;
+    border:none;
+    border-radius:8px;
+    background:#1976d2;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.unit-menu button:hover{
+    background:#1565c0;
 }
 
 .shop{
@@ -97,7 +125,7 @@ body{
     }
 }
 
-button{
+.start-btn{
     position:absolute;
     bottom:20px;
     left:50%;
@@ -111,7 +139,7 @@ button{
     cursor:pointer;
 }
 
-button:hover{
+.start-btn:hover{
     background:#ff1744;
 }
 </style>
@@ -119,68 +147,70 @@ button:hover{
 </head>
 <body>
 
-<div class="store">
-
-<div class="shop">
-<div class="sign">24시 편의점</div>
-
-<div class="door"></div>
-
-<div class="person"></div>
-<div class="person p2"></div>
-<div class="person p3"></div>
-<div class="person p4"></div>
-
+<!-- 왼쪽 단원 버튼 -->
+<div class="unit-menu">
+    <button>① 물질의 특성</button>
+    <button>② 지권의 변화</button>
+    <button>③ 빛과 파동</button>
+    <button>④ 물질의 구성</button>
+    <button>⑤ 식물과 에너지</button>
+    <button>⑥ 동물과 에너지</button>
+    <button>⑦ 전기와 자기</button>
+    <button>⑧ 별과 우주</button>
 </div>
 
-<button onclick="startApp()">시작하기</button>
+<div class="store">
+
+    <div class="shop">
+        <div class="sign">24시 편의점</div>
+
+        <div class="door"></div>
+
+        <div class="person"></div>
+        <div class="person p2"></div>
+        <div class="person p3"></div>
+        <div class="person p4"></div>
+    </div>
+
+    <button class="start-btn" onclick="startApp()">시작하기</button>
 
 </div>
 
 <script>
 function playBell(){
 
-const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
-function bell(freq,time){
-const osc = ctx.createOscillator();
-const gain = ctx.createGain();
+    function bell(freq,time){
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
-osc.frequency.value=freq;
-osc.type="triangle";
+        osc.frequency.value = freq;
+        osc.type = "triangle";
 
-osc.connect(gain);
-gain.connect(ctx.destination);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
 
-gain.gain.setValueAtTime(0.2,ctx.currentTime);
-gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+time);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time);
 
-osc.start();
-osc.stop(ctx.currentTime+time);
-}
+        osc.start();
+        osc.stop(ctx.currentTime + time);
+    }
 
-bell(880,0.3);
+    bell(880,0.3);
 
-setTimeout(()=>{
-bell(1175,0.4);
-},250);
+    setTimeout(()=>{
+        bell(1175,0.4);
+    },250);
 
 }
 
 function startApp(){
-
-playBell();
-
-alert("편의점에 입장합니다!");
-
+    playBell();
+    alert("편의점에 입장합니다!");
 }
 </script>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>중2 과학 학습 앱</title>
 
-
+</body>
 </html>
